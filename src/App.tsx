@@ -20,6 +20,8 @@ function App() {
     const vCardTextParam = searchParams.get(`vCardText`)
     if (!vCardTextParam) return
     const decodedVCardText = decodeURIComponent(vCardTextParam)
+      .split(`|`)
+      .join(`\n`)
     setExtractedVCardText(decodedVCardText)
     downloadVCard(decodeURIComponent(vCardTextParam))
   }, [])

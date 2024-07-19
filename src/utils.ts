@@ -3,16 +3,12 @@ type VCardContact = {
   tel: string
 }
 
-export function generateVCard(contacts: VCardContact[]): string {
+export function generateVCard(contacts: VCardContact[]) {
   return contacts
     .map(contact => {
-      return `BEGIN:VCARD
-  VERSION:3.0
-  FN:${contact.name}
-  TEL:${contact.tel}
-  END:VCARD`
+      return `BEGIN:VCARD|VERSION:3.0|FN:${contact.name}|TEL:${contact.tel}|END:VCARD`
     })
-    .join(`\n`)
+    .join(`|`)
 }
 
 export function downloadVCard(vCardText: string) {
