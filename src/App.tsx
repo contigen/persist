@@ -23,7 +23,7 @@ function App() {
       .split(`|`)
       .join(`\n`)
     setExtractedVCardText(decodedVCardText)
-    downloadVCard(decodeURIComponent(vCardTextParam))
+    downloadVCard(decodedVCardText)
   }, [])
 
   useEffect(() => {
