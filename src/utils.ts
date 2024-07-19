@@ -1,4 +1,4 @@
-export const BASE_URL = `https://persist-tau.vercel.app/`
+export const BASE_URL = `https://persist-tau.vercel.app`
 
 type VCardContact = {
   name: string

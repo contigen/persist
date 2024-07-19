@@ -1,6 +1,5 @@
 import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner'
 import { useState } from 'react'
-import { Spinner } from './ui/spinner'
 import { BASE_URL } from '../utils'
 
 export function QRCodeScanner() {
@@ -20,7 +19,6 @@ export function QRCodeScanner() {
       <button onClick={() => setShowScanner(prev => !prev)}>
         Show Scanner
       </button>
-      {Spinner}
       {showScanner && <Scanner onScan={handleResult} />}
       {result && (
         <h3 style={{ letterSpacing: `-0.04em`, wordWrap: `break-word` }}>
