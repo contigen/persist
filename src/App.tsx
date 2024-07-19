@@ -5,10 +5,8 @@ import { ContactForm } from './features/contact-form'
 import { QRCodeView } from './features/qr-code'
 import { ContactPicker } from './features/contact-picker'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { downloadVCard, generateVCard } from './utils'
+import { BASE_URL, downloadVCard, generateVCard } from './utils'
 import { QRCodeScanner } from './features/qr-code-scanner'
-
-const BASE_URL = `https://persist-tau.vercel.app/`
 
 function App() {
   const [contacts, setContacts] = useState<Contact[] | null>(null)
