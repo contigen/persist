@@ -1,7 +1,7 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 export function ContactForm() {
-  const [formState, setFormState] = useState({
+  const [, setFormState] = useState({
     name: ``,
     number: ``,
     info: ``,
