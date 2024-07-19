@@ -11,6 +11,7 @@ import { QRCodeScanner } from './features/qr-code-scanner'
 function App() {
   const [contacts, setContacts] = useState<Contact[] | null>(null)
   const [vCardText, setVCardText] = useState(``)
+  const [downloaded, setDownloaded] = useState(false)
 
   useLayoutEffect(() => {
     const queryString = window.location.search
@@ -21,7 +22,12 @@ function App() {
       .split(`|`)
       .join(`\n`)
     downloadVCard(decodedVCardText)
+    setDownloaded(true)
   }, [])
+
+  useEffect(() => {
+    downloaded && history.replaceState(null, ``, `/`)
+  }, [downloaded])
 
   useEffect(() => {
     if (contacts) {
