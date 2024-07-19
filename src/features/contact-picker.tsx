@@ -15,8 +15,8 @@ export function ContactPicker() {
           }
         )
         setContacts(selectedContacts)
-      } catch (error) {
-        console.error('Error selecting contacts:', error)
+      } catch (err: unknown) {
+        setError(`Error selecting contacts:', ${err}`)
       }
     } else {
       setError(`Web Contacts API not supported in this browser.`)
@@ -27,6 +27,7 @@ export function ContactPicker() {
     <div>
       <h1>Contact Picker</h1>
       <button onClick={selectContacts}>Select Contacts</button>
+      {contacts && <p>{JSON.stringify(contacts, null, 2)}</p>}
       <ul>
         {contacts?.map((contact, index) => (
           <li key={index}>
