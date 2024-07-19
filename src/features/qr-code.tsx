@@ -1,11 +1,11 @@
 import QRCode from 'react-qr-code'
 
-export function QRCodeView() {
+export function QRCodeView({ value }: { value: string }) {
   return (
     <div>
       <h1>QR Code.</h1>
       <div className=''>
-        <QRCode value='tel:+2348101193584' />
+        <QRCode value={value} />
       </div>
     </div>
   )
