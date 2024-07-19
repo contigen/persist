@@ -1,25 +1,32 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
-export function ContactPicker() {
-  const [contacts, setContacts] = useState<Contact[] | null>(null)
+export function ContactPicker({
+  contacts,
+  setContacts,
+}: {
+  contacts: Contact[] | null
+  setContacts: Dispatch<SetStateAction<Contact[] | null>>
+}) {
   const [error, setError] = useState<string>(``)
 
   async function selectContacts() {
-    if (`contacts` in navigator) {
-      navigator.vibrate?.(200)
-      try {
-        const selectedContacts = await navigator.contacts.select(
-          [`name`, `tel`],
-          {
-            multiple: true,
-          }
-        )
-        setContacts(selectedContacts)
-      } catch (err: unknown) {
-        setError(`Error selecting contacts:', ${err}`)
-      }
-    } else {
-      setError(`Web Contacts API not supported in this browser.`)
+    if (!(`contacts` in navigator)) {
+      return (
+        setError(`The Contact Picker API is not supported in this browser.`),
+        false
+      )
+    }
+    navigator.vibrate?.(200)
+    try {
+      const selectedContacts = await navigator.contacts.select(
+        [`name`, `tel`],
+        {
+          multiple: true,
+        }
+      )
+      setContacts(selectedContacts)
+    } catch (err: unknown) {
+      setError(`Error selecting contacts:', ${err}`)
     }
   }
 
@@ -27,15 +34,13 @@ export function ContactPicker() {
     <div>
       <h1>Contact Picker</h1>
       <button onClick={selectContacts}>Select Contacts</button>
-      {contacts && <p>{JSON.stringify(contacts, null, 2)}</p>}
       <ul>
         {contacts?.map((contact, idx) => (
           <li key={idx}>
-            <strong>Name:</strong> {contact.name?.join(', ')}
+            <strong>Name:</strong> {contact.name.join(`, `)}
             <br />
-            <strong>Phone:</strong> {contact.tel?.join(', ')}
+            <strong>Phone:</strong> {contact.tel.join(`, `)}
             <br />
-            <strong>Email:</strong> {contact.email?.join(', ')}
           </li>
         ))}
       </ul>
