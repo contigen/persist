@@ -4,8 +4,27 @@ import './App.css'
 import { ContactForm } from './features/contact-form'
 import { QRCodeView } from './features/qr-code'
 import { ContactPicker } from './features/contact-picker'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { downloadVCard, generateVCard } from './utils'
+
+const BASE_URL = `https://persist-tau.vercel.app/`
 
 function App() {
+  const [contacts, setContacts] = useState<Contact[] | null>(null)
+  const [vCardText, setVCardText] = useState(``)
+
+  useLayoutEffect(() => {
+    const queryString = window.location.search
+    const searchParams = new URLSearchParams(queryString)
+    const vCardTextParam = searchParams.get(`vCardText`)
+    if (!vCardTextParam) return
+    downloadVCard(vCardTextParam)
+  }, [])
+
+  useEffect(() => {
+    contacts && setVCardText(generateVCard(contacts))
+  }, [contacts])
+
   return (
     <div>
       <div>
@@ -20,8 +39,8 @@ function App() {
       </div>
       <br />
       <ContactForm />
-      <ContactPicker />
-      <QRCodeView />
+      <ContactPicker {...{ contacts, setContacts }} />
+      {vCardText && <QRCodeView value={`${BASE_URL}?vCardText=${vCardText}`} />}
     </div>
   )
 }
