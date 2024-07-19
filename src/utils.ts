@@ -9,7 +9,7 @@ export function generateVCard(contacts: VCardContact[]): string {
       return `BEGIN:VCARD
   VERSION:3.0
   FN:${contact.name[0]}
-  TEL:${contact.tel[0]}
+  TEL;TYPE=CELL:${contact.tel[0]}
   END:VCARD`
     })
     .join(`\n`)
