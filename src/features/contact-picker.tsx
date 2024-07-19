@@ -29,14 +29,13 @@ export function ContactPicker() {
       <button onClick={selectContacts}>Select Contacts</button>
       {contacts && <p>{JSON.stringify(contacts, null, 2)}</p>}
       <ul>
-        {contacts?.map((contact, index) => (
-          <li key={index}>
+        {contacts?.map((contact, idx) => (
+          <li key={idx}>
             <strong>Name:</strong> {contact.name?.join(', ')}
             <br />
-            <strong>Phone:</strong> {contact.tel?.map(t => t.value).join(', ')}
+            <strong>Phone:</strong> {contact.tel?.join(', ')}
             <br />
-            <strong>Email:</strong>{' '}
-            {contact.email?.map(e => e.value).join(', ')}
+            <strong>Email:</strong> {contact.email?.join(', ')}
           </li>
         ))}
       </ul>
