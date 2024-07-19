@@ -18,11 +18,11 @@ function App() {
     const searchParams = new URLSearchParams(queryString)
     const vCardTextParam = searchParams.get(`vCardText`)
     if (!vCardTextParam) return
-    downloadVCard(vCardTextParam)
+    downloadVCard(decodeURIComponent(vCardTextParam))
   }, [])
 
   useEffect(() => {
-    contacts && setVCardText(generateVCard(contacts))
+    contacts && setVCardText(encodeURIComponent(generateVCard(contacts)))
   }, [contacts])
 
   return (
