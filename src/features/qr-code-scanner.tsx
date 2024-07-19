@@ -1,5 +1,5 @@
 import { IDetectedBarcode, Scanner } from '@yudiel/react-qr-scanner'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BASE_URL } from '../utils'
 
 export function QRCodeScanner() {
@@ -13,6 +13,9 @@ export function QRCodeScanner() {
       location.replace(resolvedResult)
     }
   }
+  useEffect(() => {
+    result && location.replace(BASE_URL)
+  }, [result])
   return (
     <div>
       <h1>QR Code Scanner</h1>
