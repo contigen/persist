@@ -11,7 +11,7 @@ export function QRCodeScanner() {
     const resolvedResult = result.map(r => r.rawValue).join(``)
     setResult(resolvedResult)
     if (resolvedResult.startsWith(BASE_URL)) {
-      window.location.href = resolvedResult
+      location.replace(resolvedResult)
     }
   }
   return (
