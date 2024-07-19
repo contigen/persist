@@ -12,17 +12,28 @@ const BASE_URL = `https://persist-tau.vercel.app/`
 function App() {
   const [contacts, setContacts] = useState<Contact[] | null>(null)
   const [vCardText, setVCardText] = useState(``)
+  const [extractedVCardText, setExtractedVCardText] = useState(``)
 
   useLayoutEffect(() => {
     const queryString = window.location.search
     const searchParams = new URLSearchParams(queryString)
     const vCardTextParam = searchParams.get(`vCardText`)
     if (!vCardTextParam) return
+    const decodedVCardText = decodeURIComponent(vCardTextParam)
+    setExtractedVCardText(decodedVCardText)
     downloadVCard(decodeURIComponent(vCardTextParam))
   }, [])
 
   useEffect(() => {
-    contacts && setVCardText(encodeURIComponent(generateVCard(contacts)))
+    if (contacts) {
+      const modifiedContacts = contacts.map(contact => {
+        return {
+          name: contact.name[0],
+          tel: contact.tel[0],
+        }
+      })
+      setVCardText(encodeURIComponent(generateVCard(modifiedContacts)))
+    }
   }, [contacts])
 
   return (
@@ -41,6 +52,7 @@ function App() {
       <ContactForm />
       <ContactPicker {...{ contacts, setContacts }} />
       {vCardText && <QRCodeView value={`${BASE_URL}?vCardText=${vCardText}`} />}
+      {extractedVCardText && <pre>{extractedVCardText}</pre>}
     </div>
   )
 }
