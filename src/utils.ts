@@ -1,6 +1,6 @@
 type VCardContact = {
-  name: string[]
-  tel: string[]
+  name: string
+  tel: string
 }
 
 export function generateVCard(contacts: VCardContact[]): string {
@@ -8,8 +8,8 @@ export function generateVCard(contacts: VCardContact[]): string {
     .map(contact => {
       return `BEGIN:VCARD
   VERSION:3.0
-  FN:${contact.name[0]}
-  TEL;TYPE=CELL:${contact.tel[0]}
+  FN:${contact.name}
+  TEL:${contact.tel}
   END:VCARD`
     })
     .join(`\n`)
