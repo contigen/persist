@@ -8,9 +8,12 @@ export function ContactPicker() {
     if (`contacts` in navigator) {
       navigator.vibrate?.(200)
       try {
-        const selectedContacts = await navigator.contacts.select({
-          multiple: true,
-        })
+        const selectedContacts = await navigator.contacts.select(
+          [`name`, `tel`],
+          {
+            multiple: true,
+          }
+        )
         setContacts(selectedContacts)
       } catch (error) {
         console.error('Error selecting contacts:', error)
