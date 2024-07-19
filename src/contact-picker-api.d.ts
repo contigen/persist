@@ -6,15 +6,10 @@ interface ContactAddress {
   postalCode?: string
 }
 
-interface ContactField {
-  type?: string
-  value: string
-}
-
 interface Contact {
-  name?: string[]
-  tel?: ContactField[]
-  email?: ContactField[]
+  name: string[]
+  tel: string[]
+  email?: string[]
   address?: ContactAddress[]
   icon?: Blob[]
 }
