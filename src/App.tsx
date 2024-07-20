@@ -1,16 +1,16 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { ContactForm } from './features/contact-form'
-import { QRCodeView } from './features/qr-code'
-import { ContactPicker } from './features/contact-picker'
+import {
+  PersonalContactWithQRCode,
+  SharedContactWithQRCode,
+} from './features/contacts'
+import { ContactPickerWithQRCode } from './features/contact-picker'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { BASE_URL, downloadVCard, generateVCard } from './utils'
+import { downloadVCard } from './utils'
 import { QRCodeScanner } from './features/qr-code-scanner'
 
 function App() {
-  const [contacts, setContacts] = useState<Contact[] | null>(null)
-  const [vCardText, setVCardText] = useState(``)
   const [downloaded, setDownloaded] = useState(false)
 
   useLayoutEffect(() => {
@@ -29,18 +29,6 @@ function App() {
     downloaded && history.replaceState(null, ``, `/`)
   }, [downloaded])
 
-  useEffect(() => {
-    if (contacts) {
-      const modifiedContacts = contacts.map(contact => {
-        return {
-          name: contact.name[0],
-          tel: contact.tel[0],
-        }
-      })
-      setVCardText(encodeURIComponent(generateVCard(modifiedContacts)))
-    }
-  }, [contacts])
-
   return (
     <div>
       <div>
@@ -54,9 +42,9 @@ function App() {
         <h1>Vite + React</h1>
       </div>
       <br />
-      <ContactForm />
-      <ContactPicker {...{ contacts, setContacts }} />
-      {vCardText && <QRCodeView value={`${BASE_URL}?vCardText=${vCardText}`} />}
+      <PersonalContactWithQRCode />
+      <SharedContactWithQRCode />
+      <ContactPickerWithQRCode />
       <QRCodeScanner />
     </div>
   )
