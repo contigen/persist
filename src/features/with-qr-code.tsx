@@ -1,9 +1,15 @@
-import { ComponentType, useEffect, useState } from 'react'
+import { ComponentType, Dispatch, useEffect, useState } from 'react'
 import { QRCodeView } from './qr-code'
 import { type VCardContact, generateVCard } from '../utils'
 
-export function withQRCode<P>(Component: ComponentType<P>) {
-  return function ComponentWithQRCode(props: P) {
+type WithQRCodeProp = {
+  setContacts: Dispatch<React.SetStateAction<VCardContact[]>>
+}
+
+export function withQRCode<P extends WithQRCodeProp>(
+  Component: ComponentType<P>
+) {
+  return function ComponentWithQRCode(props: Omit<P, keyof WithQRCodeProp>) {
     const [contacts, setContacts] = useState<VCardContact[]>([])
     const [vCardText, setVCardText] = useState(``)
     useEffect(() => {
@@ -12,7 +18,7 @@ export function withQRCode<P>(Component: ComponentType<P>) {
 
     return (
       <>
-        <Component {...props} setContacts={setContacts} />
+        <Component {...(props as P)} {...{ setContacts }} />
         <br />
         {vCardText && <QRCodeView value={vCardText} />}
       </>
