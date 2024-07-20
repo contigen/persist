@@ -1,3 +1,6 @@
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
 export const BASE_URL = `https://persist-tau.vercel.app`
 
 export type VCardContact = {
@@ -26,4 +29,8 @@ export function downloadVCard(vCardText: string) {
   link.click()
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
