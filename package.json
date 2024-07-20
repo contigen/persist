@@ -11,13 +11,15 @@
   },
   "dependencies": {
     "@yudiel/react-qr-scanner": "^2.0.4",
+    "clsx": "^2.1.1",
     "html-to-image": "^1.11.11",
     "iconsax-react": "^0.0.8",
     "non.geist": "1.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-loader-spinner": "^6.1.6",
-    "react-qr-code": "^2.0.15"
+    "react-qr-code": "^2.0.15",
+    "tw-merge": "^0.0.1-alpha.3"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
