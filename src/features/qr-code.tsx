@@ -2,6 +2,7 @@ import QRCode from 'react-qr-code'
 import { BASE_URL } from '../utils'
 
 export function QRCodeView({ value }: { value: string }) {
+  value = encodeURIComponent(value)
   return (
     <div>
       <h1>QR Code.</h1>
