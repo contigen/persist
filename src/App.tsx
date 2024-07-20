@@ -1,5 +1,3 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import {
   PersonalContactWithQRCode,
@@ -9,6 +7,8 @@ import { ContactPickerWithQRCode } from './features/contact-picker'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { downloadVCard } from './utils'
 import { QRCodeScanner } from './features/qr-code-scanner'
+import { InlineBubble } from './features/ui/inline-bubble'
+import { Book } from 'iconsax-react'
 
 function App() {
   const [downloaded, setDownloaded] = useState(false)
@@ -31,16 +31,12 @@ function App() {
 
   return (
     <div>
-      <div>
-        <h1>Persist.</h1>
-        <a href='https://vitejs.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-        <h1>Vite + React</h1>
-      </div>
+      <span className='p-2 inline-block'>
+        <InlineBubble direction='right' className='py-1'>
+          <Book size='20' color='#fff' />
+        </InlineBubble>
+      </span>
+      <h1>Persist.</h1>
       <br />
       <PersonalContactWithQRCode />
       <SharedContactWithQRCode />
