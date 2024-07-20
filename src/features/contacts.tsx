@@ -119,8 +119,8 @@ function SharedContact({
             style={{ marginRight: `10px` }}
           />
           <input
-            placeholder='Additional Info'
-            name='info'
+            placeholder='Notes'
+            name='note'
             value={contact.note}
             onChange={({ currentTarget: { name, value } }) =>
               handleInputChange(idx, name, value)
