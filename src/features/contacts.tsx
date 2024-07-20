@@ -9,7 +9,7 @@ import {
 import { VCardContact } from '../utils'
 import { withQRCode } from './with-qr-code'
 
-function _PersonalContact({
+function PersonalContact({
   setContacts,
 }: {
   setContacts: Dispatch<SetStateAction<VCardContact[]>>
@@ -53,13 +53,13 @@ function _PersonalContact({
   )
 }
 
-export const PersonalContact = withQRCode(_PersonalContact)
+export const PersonalContactWithQRCode = withQRCode(PersonalContact)
 
 type SharedContact = VCardContact & {
   info: string
 }
 
-function _SharedContact({
+function SharedContact({
   setContacts,
 }: {
   setContacts: Dispatch<SetStateAction<VCardContact[]>>
@@ -137,4 +137,4 @@ function _SharedContact({
   )
 }
 
-export const SharedContact = withQRCode(_SharedContact)
+export const SharedContactWithQRCode = withQRCode(SharedContact)
