@@ -1,6 +1,6 @@
 export const BASE_URL = `https://persist-tau.vercel.app`
 
-type VCardContact = {
+export type VCardContact = {
   name: string
   tel: string
 }
