@@ -56,7 +56,7 @@ function PersonalContact({
 export const PersonalContactWithQRCode = withQRCode(PersonalContact)
 
 type SharedContact = VCardContact & {
-  info: string
+  note: string
 }
 
 function SharedContact({
@@ -78,19 +78,13 @@ function SharedContact({
   }
 
   function addNewContactField() {
-    setSharedContacts([...sharedContacts, { name: ``, tel: ``, info: `` }])
+    setSharedContacts([...sharedContacts, { name: ``, tel: ``, note: `` }])
   }
 
   function shareContact(idx: number) {
     const targetContact = [...sharedContacts][idx]
-    setContacts(prevContacts => [
-      ...prevContacts,
-      { name: targetContact.name, tel: targetContact.tel },
-    ])
-  }
-
-  function shareContacts() {
-    setContacts(sharedContacts.map(({ name, tel }) => ({ name, tel })))
+    const { name, tel, note } = targetContact
+    setContacts(prevContacts => [...prevContacts, { name, tel, note }])
   }
 
   function deleteContact(idx: number) {
@@ -127,7 +121,7 @@ function SharedContact({
           <input
             placeholder='Additional Info'
             name='info'
-            value={contact.info}
+            value={contact.note}
             onChange={({ currentTarget: { name, value } }) =>
               handleInputChange(idx, name, value)
             }
@@ -137,7 +131,9 @@ function SharedContact({
         </div>
       ))}
       <button onClick={addNewContactField}>Add new contact</button>
-      <button onClick={shareContacts}>Share contacts</button>
+      <button onClick={() => setContacts(sharedContacts)}>
+        Share contacts
+      </button>
       {sharedContacts.length > 0 && (
         <button onClick={() => setSharedContacts([])}>Delete contacts</button>
       )}

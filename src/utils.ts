@@ -3,12 +3,15 @@ export const BASE_URL = `https://persist-tau.vercel.app`
 export type VCardContact = {
   name: string
   tel: string
+  note?: string
 }
 
 export function generateVCard(contacts: VCardContact[]) {
   return contacts
     .map(contact => {
-      return `BEGIN:VCARD|VERSION:3.0|FN:${contact.name}|TEL:${contact.tel}|END:VCARD`
+      return `BEGIN:VCARD|VERSION:3.0|FN:${contact.name}|TEL:${contact.tel}|${
+        contact.note ? `NOTE:${contact.note}` : ``
+      }|END:VCARD`
     })
     .join(`|`)
 }
