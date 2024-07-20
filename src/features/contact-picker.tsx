@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { VCardContact } from '../utils'
+import { withQRCode } from './with-qr-code'
 
-export function ContactPicker({
-  contacts,
+function ContactPicker({
   setContacts,
 }: {
-  contacts: Contact[] | null
-  setContacts: Dispatch<SetStateAction<Contact[] | null>>
+  setContacts: Dispatch<SetStateAction<VCardContact[]>>
 }) {
   const [error, setError] = useState<string>(``)
-
+  const [contacts, _setContacts] = useState<Contact[] | null>(null)
   async function selectContacts() {
     if (!(`contacts` in navigator)) {
       return (
@@ -24,11 +24,23 @@ export function ContactPicker({
           multiple: true,
         }
       )
-      setContacts(selectedContacts)
+      _setContacts(selectedContacts)
     } catch (err: unknown) {
-      setError(`Error selecting contacts:', ${err}`)
+      setError(`Error selecting contacts:, ${err}`)
     }
   }
+
+  useEffect(() => {
+    if (contacts) {
+      const modifiedContacts = contacts.map(contact => {
+        return {
+          name: contact.name[0],
+          tel: contact.tel[0],
+        }
+      })
+      setContacts(modifiedContacts)
+    }
+  }, [contacts, setContacts])
 
   return (
     <div>
@@ -48,3 +60,5 @@ export function ContactPicker({
     </div>
   )
 }
+
+export const ContactPickerWithQRCode = withQRCode(ContactPicker)
