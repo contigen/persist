@@ -93,6 +93,10 @@ function SharedContact({
     setContacts(sharedContacts.map(({ name, tel }) => ({ name, tel })))
   }
 
+  function deleteContact(idx: number) {
+    setSharedContacts(prevContacts => prevContacts.filter((_, i) => i !== idx))
+  }
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sharedContacts))
   }, [LOCAL_STORAGE_KEY, sharedContacts])
@@ -129,10 +133,14 @@ function SharedContact({
             }
           />
           <button onClick={() => shareContact(idx)}>Share contact</button>
+          <button onClick={() => deleteContact(idx)}>Delete contact</button>
         </div>
       ))}
       <button onClick={addNewContactField}>Add new contact</button>
       <button onClick={shareContacts}>Share contacts</button>
+      {sharedContacts.length > 0 && (
+        <button onClick={() => setSharedContacts([])}>Delete contacts</button>
+      )}
     </div>
   )
 }
