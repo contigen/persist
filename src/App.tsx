@@ -31,9 +31,9 @@ function App() {
 
   return (
     <div>
-      <span className='p-2 inline-block'>
-        <InlineBubble direction='right' className='py-1'>
-          <Book size='20' color='#fff' />
+      <span className='inline-block p-2'>
+        <InlineBubble direction='left' className='py-1.5 px-4'>
+          <Book size='24' color='#fff' variant='TwoTone' />
         </InlineBubble>
       </span>
       <h1>Persist.</h1>
