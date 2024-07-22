@@ -97,7 +97,7 @@ function SharedContact({
 
   return (
     <div>
-      <h1>Shared contact.</h1>
+      <h2 className='font-[640]'>Shared contact</h2>
       {sharedContacts.map((contact, idx) => (
         <div key={idx} style={{ marginBottom: `10px` }}>
           <input

@@ -44,7 +44,7 @@ function ContactPicker({
 
   return (
     <div>
-      <h1>Contact Picker</h1>
+      <h2 className='font-[640]'>Contact Picker</h2>
       <button onClick={selectContacts}>Select Contacts</button>
       <ul>
         {contacts?.map((contact, idx) => (

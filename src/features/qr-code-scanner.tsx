@@ -15,7 +15,7 @@ export function QRCodeScanner() {
   }
   return (
     <div>
-      <h1>QR Code Scanner</h1>
+      <h2 className='font-[640]'>QR Code Scanner</h2>
       <button onClick={() => setShowScanner(prev => !prev)}>
         Show Scanner
       </button>
