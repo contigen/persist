@@ -8,6 +8,8 @@ import {
 } from 'react'
 import { VCardContact } from '../utils'
 import { withQRCode } from './with-qr-code'
+import { Button } from './ui/button'
+import { Add, Minus, Send2 } from 'iconsax-react'
 
 function PersonalContact({
   setContacts,
@@ -26,7 +28,7 @@ function PersonalContact({
 
   useLayoutEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-ignorej
     const $form = document.forms[`personal-form`]
     const stringFormData = localStorage.getItem(`personal-contact`)
     if (!stringFormData) return
@@ -43,11 +45,19 @@ function PersonalContact({
 
   return (
     <div>
-      <h1>Personal contact</h1>
+      <h2 className='font-[640]'>Personal contact</h2>
       <form onSubmit={handleSubmit} name='personal-form'>
-        <input placeholder='Name' name='name' />
-        <input placeholder='Number' inputMode='numeric' name='number' />
-        <button type='submit'>Add Contact</button>
+        <input placeholder='Name' name='name' required />
+        <input
+          placeholder='Number'
+          inputMode='numeric'
+          name='number'
+          required
+        />
+        <Button type='submit' className='bg-black text-white rounded-lg'>
+          <Add />
+          Add Contact
+        </Button>
       </form>
     </div>
   )
@@ -121,21 +131,31 @@ function SharedContact({
           <input
             placeholder='Notes'
             name='note'
+            required
             value={contact.note}
             onChange={({ currentTarget: { name, value } }) =>
               handleInputChange(idx, name, value)
             }
           />
-          <button onClick={() => shareContact(idx)}>Share contact</button>
-          <button onClick={() => deleteContact(idx)}>Delete contact</button>
+          <Button onClick={() => shareContact(idx)}>
+            <Send2 /> Share contact
+          </Button>
+          <Button
+            onClick={() => deleteContact(idx)}
+            className='bg-red-500 p-px rounded-full'
+          >
+            <Minus size='32' color='#ffffff' />
+          </Button>
         </div>
       ))}
-      <button onClick={addNewContactField}>Add new contact</button>
-      <button onClick={() => setContacts(sharedContacts)}>
-        Share contacts
-      </button>
+      <Button onClick={addNewContactField}>Add new contact</Button>
       {sharedContacts.length > 0 && (
-        <button onClick={() => setSharedContacts([])}>Delete contacts</button>
+        <>
+          <Button onClick={() => setContacts(sharedContacts)}>
+            <Send2 /> Share contacts
+          </Button>
+          <Button onClick={() => setSharedContacts([])}>Delete contacts</Button>
+        </>
       )}
     </div>
   )
