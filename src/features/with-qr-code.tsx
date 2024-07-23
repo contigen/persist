@@ -1,6 +1,7 @@
 import { ComponentType, Dispatch, useEffect, useState } from 'react'
 import { QRCodeView } from './qr-code'
 import { type VCardContact, generateVCard } from '../utils'
+import { Sheet } from './ui/sheet'
 
 type WithQRCodeProp = {
   setContacts: Dispatch<React.SetStateAction<VCardContact[]>>
@@ -20,7 +21,9 @@ export function withQRCode<P extends WithQRCodeProp>(
       <>
         <Component {...(props as P)} {...{ setContacts }} />
         <br />
-        {vCardText && <QRCodeView value={vCardText} />}
+        {vCardText && (
+          <Sheet content={<QRCodeView value={vCardText} />}>Show QR Code</Sheet>
+        )}
       </>
     )
   }
