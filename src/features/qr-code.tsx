@@ -2,8 +2,15 @@ import QRCode from 'react-qr-code'
 import { toJpeg } from 'html-to-image'
 import { BASE_URL } from '../utils'
 import { useRef } from 'react'
+import { Button } from './ui/button'
 
-export function QRCodeView({ value }: { value: string }) {
+export function QRCodeView({
+  value,
+  children,
+}: {
+  value: string
+  children?: React.ReactNode
+}) {
   value = encodeURIComponent(value)
   const QRCodeContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -18,13 +25,19 @@ export function QRCodeView({ value }: { value: string }) {
   }
   return (
     <div>
-      <h2 className='font-[640]'>Quick Response Code.</h2>
-      <br />
-      <div className='flex justify-center flex-col items-center'>
+      <div className='flex justify-center flex-col items-center space-y-2'>
+        <h1>Quick Response Code.</h1>
         <div className='p-3 bg-white' ref={QRCodeContainerRef}>
           <QRCode value={`${BASE_URL}?vCardText=${value}`} />
         </div>
-        <button onClick={downloadQRCode}>Download QR Code</button>
+        <hr />
+        {children}
+        <Button
+          onClick={downloadQRCode}
+          className='rounded-full border-blue-600 border-2 bg-blue-400/15 text-blue-600'
+        >
+          Download
+        </Button>
       </div>
     </div>
   )
