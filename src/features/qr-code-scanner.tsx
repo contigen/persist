@@ -5,15 +5,16 @@ import {
 import { useState } from 'react'
 import { BASE_URL } from '../utils'
 import { Scanner } from 'iconsax-react'
-import { Button } from './ui/button'
+import { Sheet } from './ui/sheet'
+import { Spinner } from './ui/spinner'
 
 export function QRCodeScanner() {
-  const [showScanner, setShowScanner] = useState(false)
-  const [result, setResult] = useState(``)
+  const [scanning, setScanning] = useState(true)
 
   function handleResult(result: IDetectedBarcode[]) {
+    setScanning(false)
     const resolvedResult = result.map(r => r.rawValue).join(``)
-    setResult(resolvedResult)
+    console.log(resolvedResult)
     if (resolvedResult.startsWith(BASE_URL)) {
       location.replace(resolvedResult)
     }
@@ -24,18 +25,22 @@ export function QRCodeScanner() {
         <Scanner color='#fff' />
       </span>
       <h2 className='font-[640]'>QR Code Scanner</h2>
-      <Button
-        onClick={() => setShowScanner(prev => !prev)}
-        className='bg-black text-white'
+      <Sheet
+        content={
+          <div className='flex flex-col space-y-4 items-center'>
+            {scanning && Spinner}
+            <QRScanner
+              onScan={handleResult}
+              classNames={{
+                container: `rounded-[2rem] max-w-sm overflow-hidden`,
+                video: `rounded-[2rem] max-w-sm`,
+              }}
+            />
+          </div>
+        }
       >
-        Scan
-      </Button>
-      {showScanner && <QRScanner onScan={handleResult} />}
-      {result && (
-        <h3 style={{ letterSpacing: `-0.04em`, wordWrap: `break-word` }}>
-          {result}
-        </h3>
-      )}
+        scan
+      </Sheet>
     </div>
   )
 }
