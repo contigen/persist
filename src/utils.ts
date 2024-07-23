@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-export const BASE_URL = `https://persist-tau.vercel.app`
+export const BASE_URL = window.location.origin
 
 export type VCardContact = {
   name: string
@@ -12,8 +12,8 @@ export type VCardContact = {
 export function generateVCard(contacts: VCardContact[]) {
   return contacts
     .map(contact => {
-      return `BEGIN:VCARD|VERSION:3.0|FN:${contact.name}|TEL:${contact.tel}|${
-        contact.note ? `NOTE:${contact.note}` : ``
+      return `BEGIN:VCARD|VERSION:3.0|FN:${contact.name}|TEL:${contact.tel}${
+        contact.note ? `|NOTE:${contact.note}` : ``
       }|END:VCARD`
     })
     .join(`|`)
