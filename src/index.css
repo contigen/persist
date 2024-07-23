@@ -4,7 +4,6 @@
 
 @layer base {
   body {
-    @apply m-4;
     font-family: 'Geist Variable';
   }
 
@@ -21,15 +20,15 @@
   }
 
   h1 {
-    @apply text-5xl
+    @apply text-4xl md:text-5xl
   }
 
   h2 {
-    @apply text-4xl
+    @apply text-3xl md:text-4xl
   }
 
   h3 {
-    @apply text-2xl
+    @apply text-xl md:text-2xl
   }
 
   h4 {
@@ -38,9 +37,5 @@
 
   input {
     @apply border rounded-md px-2 py-px
-  }
-
-  button {
-    @apply border bg-gray-50 px-2
   }
 }
