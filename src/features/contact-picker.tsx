@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { VCardContact } from '../utils'
 import { withQRCode } from './with-qr-code'
+import { Button } from './ui/button'
 
 function ContactPicker({
   setContacts,
@@ -45,7 +46,7 @@ function ContactPicker({
   return (
     <div>
       <h2 className='font-[640]'>Contact Picker</h2>
-      <button onClick={selectContacts}>Select Contacts</button>
+      <Button onClick={selectContacts}>Select Contacts</Button>
       <ul>
         {contacts?.map((contact, idx) => (
           <li key={idx}>
