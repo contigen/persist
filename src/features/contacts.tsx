@@ -10,6 +10,7 @@ import { VCardContact } from '../utils'
 import { withQRCode } from './with-qr-code'
 import { Button } from './ui/button'
 import { Add, Minus, Send2 } from 'iconsax-react'
+import { toast } from 'sonner'
 
 function PersonalContact({
   setContacts,
@@ -45,8 +46,12 @@ function PersonalContact({
 
   return (
     <div>
-      <h2 className='font-[640]'>Personal contact</h2>
-      <form onSubmit={handleSubmit} name='personal-form'>
+      <h2 className='font-[640] mb-2'>Personal contact</h2>
+      <form
+        onSubmit={handleSubmit}
+        name='personal-form'
+        className='flex flex-wrap'
+      >
         <input placeholder='Name' name='name' required />
         <input
           placeholder='Number'
@@ -94,6 +99,10 @@ function SharedContact({
   function shareContact(idx: number) {
     const targetContact = [...sharedContacts][idx]
     const { name, tel, note } = targetContact
+    if (name === `` || tel === `` || note === ``) {
+      toast.warning(`Empty field`)
+      return
+    }
     setContacts(prevContacts => [...prevContacts, { name, tel, note }])
   }
 
@@ -106,7 +115,7 @@ function SharedContact({
   }, [LOCAL_STORAGE_KEY, sharedContacts])
 
   return (
-    <div>
+    <div className='my-8'>
       <h2 className='font-[640]'>Shared contact</h2>
       {sharedContacts.map((contact, idx) => (
         <div key={idx} style={{ marginBottom: `10px` }}>
@@ -137,26 +146,41 @@ function SharedContact({
               handleInputChange(idx, name, value)
             }
           />
-          <Button onClick={() => shareContact(idx)}>
-            <Send2 /> Share contact
-          </Button>
-          <Button
-            onClick={() => deleteContact(idx)}
-            className='bg-red-500 p-px rounded-full'
-          >
-            <Minus size='32' color='#ffffff' />
-          </Button>
+          <sub className='inline-flex gap-0.5 ml-3 scale-[.8]'>
+            <Button
+              onClick={() => shareContact(idx)}
+              className='bg-black text-white gap-1 px-2 rounded-full'
+            >
+              <Send2 size={16} />
+            </Button>
+            <Button
+              onClick={() => deleteContact(idx)}
+              className='bg-red-500 p-px rounded-full'
+            >
+              <Minus size='32' color='#ffffff' />
+            </Button>
+          </sub>
         </div>
       ))}
-      <Button onClick={addNewContactField}>Add new contact</Button>
-      {sharedContacts.length > 0 && (
-        <>
-          <Button onClick={() => setContacts(sharedContacts)}>
-            <Send2 /> Share contacts
-          </Button>
-          <Button onClick={() => setSharedContacts([])}>Delete contacts</Button>
-        </>
-      )}
+      <div className='flex mt-4 gap-2 flex-wrap'>
+        <Button onClick={addNewContactField}>Add new contact</Button>
+        {sharedContacts.length > 0 && (
+          <>
+            <Button
+              onClick={() => setContacts(sharedContacts)}
+              className='bg-black text-white gap-1'
+            >
+              <Send2 size={16} /> Share contacts
+            </Button>
+            <Button
+              onClick={() => setSharedContacts([])}
+              className='bg-red-500'
+            >
+              Delete contacts
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   )
 }
