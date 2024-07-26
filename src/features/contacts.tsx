@@ -50,7 +50,8 @@ function PersonalContact({
       <form
         onSubmit={handleSubmit}
         name='personal-form'
-        className='flex flex-wrap'
+        className='flex gap-2 flex-wrap
+        '
       >
         <input placeholder='Name' name='name' required />
         <input
