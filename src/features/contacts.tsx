@@ -104,7 +104,18 @@ function SharedContact({
       toast.warning(`Empty field`)
       return
     }
-    setContacts(prevContacts => [...prevContacts, { name, tel, note }])
+    setContacts([{ name, tel, note }])
+  }
+
+  function shareContacts() {
+    const hasEmptyFields = sharedContacts.some(
+      ({ name, tel, note }) => name === `` || tel === `` || note === ``
+    )
+    if (hasEmptyFields) {
+      toast.warning(`Empty field in shared contacts`)
+      return
+    }
+    setContacts(sharedContacts)
   }
 
   function deleteContact(idx: number) {
@@ -168,7 +179,7 @@ function SharedContact({
         {sharedContacts.length > 0 && (
           <>
             <Button
-              onClick={() => setContacts(sharedContacts)}
+              onClick={shareContacts}
               className='bg-black text-white gap-1'
             >
               <Send2 size={16} /> Share contacts
