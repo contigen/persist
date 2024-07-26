@@ -6,10 +6,13 @@ import { Button } from './button'
 export function Sheet({
   content,
   children,
+  open,
+  onClose,
 }: {
-  children: ReactNode
+  children?: ReactNode
   content: ReactNode
-  className?: string
+  open?: boolean
+  onClose?: () => void
 }) {
   const [dragged, setDragged] = useState(false)
   return (
@@ -18,10 +21,15 @@ export function Sheet({
         shouldScaleBackground
         onDrag={() => setDragged(true)}
         onRelease={() => setDragged(false)}
+        open={open}
+        onOpenChange={isOpen => !isOpen && onClose?.()}
+        onClose={onClose}
       >
-        <Drawer.Trigger asChild>
-          <Button className='bg-black text-white'>{children}</Button>
-        </Drawer.Trigger>
+        {children && (
+          <Drawer.Trigger asChild>
+            <Button className='bg-black text-white'>{children}</Button>
+          </Drawer.Trigger>
+        )}
         <Drawer.Portal>
           <Drawer.Overlay className='fixed inset-0 bg-black/40 backdrop-blur-sm' />
           <Drawer.Content className='flex flex-col rounded-t-3xl mt-24 fixed bottom-0 left-0 right-0 max-h-[80%] min-h-[50%] outline-none'>

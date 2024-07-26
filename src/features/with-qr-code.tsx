@@ -13,7 +13,10 @@ export function withQRCode<P extends WithQRCodeProp>(
   return function ComponentWithQRCode(props: Omit<P, keyof WithQRCodeProp>) {
     const [contacts, setContacts] = useState<VCardContact[]>([])
     const [vCardText, setVCardText] = useState(``)
+    const [open, setOpen] = useState(false)
+
     useEffect(() => {
+      contacts[0]?.note && setOpen(true)
       contacts && setVCardText(generateVCard(contacts))
     }, [contacts])
 
@@ -21,8 +24,15 @@ export function withQRCode<P extends WithQRCodeProp>(
       <>
         <Component {...(props as P)} {...{ setContacts }} />
         <br />
-        {vCardText && (
+        {!contacts[0]?.note && vCardText && (
           <Sheet content={<QRCodeView value={vCardText} />}>Show QR Code</Sheet>
+        )}
+        {open && vCardText && (
+          <Sheet
+            content={<QRCodeView value={vCardText} />}
+            open={open}
+            onClose={() => setOpen(false)}
+          />
         )}
       </>
     )
