@@ -9,6 +9,7 @@ import { downloadVCard } from './utils'
 import { QRCodeScanner } from './features/qr-code-scanner'
 import { InlineBubble } from './features/ui/inline-bubble'
 import { Book } from 'iconsax-react'
+import { toast } from 'sonner'
 
 function App() {
   const [downloaded, setDownloaded] = useState(false)
@@ -21,6 +22,7 @@ function App() {
     const decodedVCardText = decodeURIComponent(vCardTextParam)
       .split(`|`)
       .join(`\n`)
+    toast.info(`Downloading contact data`)
     downloadVCard(decodedVCardText)
     setDownloaded(true)
   }, [])
