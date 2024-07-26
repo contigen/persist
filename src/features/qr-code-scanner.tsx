@@ -20,7 +20,7 @@ export function QRCodeScanner() {
     }
   }
   return (
-    <div className='rounded-[1.5rem] shadow-md px-10 py-20 space-y-6 w-max'>
+    <div className='rounded-[1.5rem] shadow-md px-10 py-20 space-y-6 w-max max-w-full'>
       <span className='rounded-xl p-4 bg-gray-900 inline-block'>
         <Scanner color='#fff' />
       </span>
