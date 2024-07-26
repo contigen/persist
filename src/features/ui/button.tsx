@@ -10,7 +10,7 @@ export function Button({
   return (
     <button
       className={cn(
-        `py-1 px-6 bg-blue-600 rounded-xl text-white inline-flex`,
+        `py-1 px-6 bg-blue-600 rounded-xl text-white inline-flex items-center`,
         className
       )}
       onClick={onClick}
