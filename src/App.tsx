@@ -56,7 +56,7 @@ function App() {
         </h1>
         <br />
         <PersonalContactWithQRCode />
-        {vCardText && <ImportedContacts vCardText={vCardText} />}
+        <ImportedContacts vCardText={vCardText} />
         <SharedContactWithQRCode />
         <ContactPickerWithQRCode />
         <QRCodeScanner />
