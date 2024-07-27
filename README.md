@@ -1,30 +1,64 @@
-# React + TypeScript + Vite
+<img src="./public/persist.png" width=89.48655257 height=60 alt='logo for app'>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Persist
 
-Currently, two official plugins are available:
+A contact sharing progressive web app using the Contact Picker API, Q R Codes and vCards to embed contact data for contactless/seamless transfer across devices on the Web. The app or PWA offers a refined way of sharing contacts during social interactions, events, networking sessions and whatnots.
+It enables users to select contacts from their phonebook, generate vCard files to import contacts on other devices, and share them via dynamically generated QR codes. <br/>
+The PWA is live at [persist-tau.vercel.app](https://persist-tau.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Features
 
-## Expanding the ESLint configuration
+- Select contacts for users' phonebook
+- Generate vCard files to import contacts on other devices
+- Personal and shared contact forms and imported contacts' list
+- Share contacts via dynamically generated QR codes － download & scan QR Codes in-app
+- Installable app
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies
 
-- Configure the top-level `parserOptions` property like this:
+- React
+- TypeScript
+- TailwindCSS for styling
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Gotcha
+
+The Contact Picker API only works in Chromium Browsers and Safari (requires enabling a feature flag).
+
+## Misc.
+
+Other transfer protocols were evaluated like the Web Bluetooth API, WebSockets and even the Web NFC API, for contact sharing.
+<br/>
+
+- **Web Bluetooth API**: The current implementation of the API doesn't allow for P2P connection.
+
+- **WebSockets**: While WebSockets offer real-time communication capabilities, they require a server-side component to handle connections and message exchanges. This adds additional complexity and infrastructure requirements, which were deemed unnecessary for the current app state.
+
+- **Web NFC API**: The Web NFC API enables interaction with NFC tags for contactless data transfer. Although promising, it is not yet widely supported across all devices and browsers, which will limit the app’s accessibility and functionality for users.
+
+Quick Response Codes affords the best compatibility for the current app state: doesn't introduce any server-side effect, convenient for storage.
+
+Regardless, future updates could include:
+
+Remote Contact Sharing via WebSockets: Implementing WebSocket-based contact sharing could enable real-time updates and interactions, allowing users to exchange contact information instantly regardless of location.
+
+Exporting Contacts to NFC Tags using Web NFC API for quick and intuitive data transfer.
+
+### Development dependencies
+
+- `Vite` as the dev server with HMR and some ESLint rules.
+- `VitePWA` to serve the app as a PWA for offline capabilities and native-like app feel
+- `Bun` as the runtime
+
+### Development Scripts
+
+To start the dev server:
+
+```
+bun run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To build the app and start the prod server:
+
+```
+bun run build && bun run preview
+```
