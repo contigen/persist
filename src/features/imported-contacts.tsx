@@ -33,19 +33,21 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
             <h1 className='font-[650]'>Imported Contacts</h1>
             {importedContacts.length > 0 ? (
               <>
-                <ol className='list-inside list-decimal text-left mx-auto'>
-                  {importedContacts.map(({ name, tel }) => (
-                    <li key={name}>
-                      <b>{name}</b>{' '}
-                      <a
-                        href={`tel:${tel}`}
-                        className='underline underline-offset-2'
-                      >
-                        {tel}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
+                <div className='flex justify-center'>
+                  <ol className='list-inside list-decimal text-left'>
+                    {importedContacts.map(({ name, tel }) => (
+                      <li key={name}>
+                        <b>{name}</b>{' '}
+                        <a
+                          href={`tel:${tel}`}
+                          className='underline underline-offset-2'
+                        >
+                          {tel}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
                 <Button
                   className='bg-red-500 text-white shadow-md px-14'
                   onClick={() => setImportedContacts([])}
