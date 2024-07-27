@@ -33,7 +33,7 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
             <h1 className='font-[650]'>Imported Contacts</h1>
             {importedContacts.length > 0 && (
               <>
-                <ol className='list-inside list-decimal'>
+                <ol className='list-inside list-decimal text-left'>
                   {importedContacts.map(({ name, tel }) => (
                     <li key={name}>
                       <b>{name}</b>{' '}
@@ -54,6 +54,7 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
                 </Button>
               </>
             )}
+            <b>zero imported contacts</b>
           </div>
         }
       >
