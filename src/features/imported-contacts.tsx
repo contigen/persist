@@ -1,3 +1,4 @@
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { ContactsWithoutNote, parseVCardText } from '../utils'
 import { Button } from './ui/button'
 import { Sheet } from './ui/sheet'
@@ -5,20 +6,24 @@ import { Sheet } from './ui/sheet'
 const IMPORTED_CONTACTS_KEY = `imported-contacts`
 
 export function ImportedContacts({ vCardText }: { vCardText: string }) {
-  const storedImportedContacts =
-    localStorage.getItem(IMPORTED_CONTACTS_KEY) || ``
-  const parsedImportedContacts: ContactsWithoutNote = storedImportedContacts
-    ? JSON.parse(storedImportedContacts)
-    : []
-  const importedContacts = [
-    ...parsedImportedContacts,
-    parseVCardText(vCardText),
-  ] as ContactsWithoutNote
-  importedContacts &&
+  const [importedContacts, setImportedContacts] = useState<ContactsWithoutNote>(
+    () => {
+      const storedImportedContacts = localStorage.getItem(IMPORTED_CONTACTS_KEY)
+      return storedImportedContacts ? JSON.parse(storedImportedContacts) : []
+    }
+  )
+
+  useLayoutEffect(() => {
+    const newContacts = parseVCardText(vCardText)
+    setImportedContacts(prevContacts => [...prevContacts, ...newContacts])
+  }, [vCardText])
+
+  useEffect(() => {
     localStorage.setItem(
       IMPORTED_CONTACTS_KEY,
       JSON.stringify(importedContacts)
     )
+  }, [importedContacts])
 
   return (
     <div className='my-4'>
@@ -26,7 +31,7 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
         content={
           <div className='space-y-4'>
             <h1 className='font-[650]'>Imported Contacts</h1>
-            {importedContacts?.length > 0 && (
+            {importedContacts.length > 0 && (
               <ol className='list-inside list-decimal'>
                 {importedContacts.map(({ name, tel }) => (
                   <li key={name}>
@@ -43,7 +48,7 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
             )}
             <Button
               className='bg-red-500 text-white shadow-md px-14'
-              onClick={() => localStorage.removeItem(IMPORTED_CONTACTS_KEY)}
+              onClick={() => setImportedContacts([])}
             >
               Remove all
             </Button>
