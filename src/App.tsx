@@ -25,7 +25,7 @@ function App() {
       .split(`|`)
       .join(`\n`)
     setVCardText(decodedVCardText)
-    toast.info(`Downloading contact data`)
+    requestAnimationFrame(() => toast.info(`Downloading contact data`))
     setTimeout(() => downloadVCard(decodedVCardText))
     setDownloaded(true)
   }, [])
