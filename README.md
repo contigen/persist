@@ -2,17 +2,17 @@
 
 # Persist
 
-A contact sharing progressive web app using the Contact Picker API, Q R Codes and vCards to embed contact data for contactless/seamless transfer across devices on the Web. The app or PWA offers a refined way of sharing contacts during social interactions, events, networking sessions and whatnots.
+A contact sharing progressive web app using the Contact Picker API, QR Codes and vCards to embed contact data for contactless/seamless transfer across devices on the Web. The app/PWA offers a refined way of sharing contacts during social interactions, events, networking sessions and whatnots.
 It enables users to select contacts from their phonebook, generate vCard files to import contacts on other devices, and share them via dynamically generated QR codes. <br/>
 The PWA is live at [persist-tau.vercel.app](https://persist-tau.vercel.app)
 
 # Features
 
-- Select contacts for users' phonebook
+- Contact Selection with Vibration Feedback: users can select contacts from their phonebook, with vibration feedback provided, via the Vibration API, to confirm their action
 - Generate vCard files to import contacts on other devices
-- Personal and shared contact forms and imported contacts' list
+- Personal and shared contact forms plus imported contacts' list, with local storage persistence
 - Share contacts via dynamically generated QR codes － download & scan QR Codes in-app
-- Installable app
+- Progressive Web Application － Installable app
 
 ## Technologies
 
@@ -43,6 +43,12 @@ Remote Contact Sharing via WebSockets: Implementing WebSocket-based contact shar
 
 Exporting Contacts to NFC Tags using Web NFC API for quick and intuitive data transfer.
 
+## Usage
+
+If you use this project, please provide appropriate credit to acknowledge the original work.
+
+If this project inspires you to create something, I'd love to hear about it. Please reach out and share your work with me.
+
 ### Development dependencies
 
 - `Vite` as the dev server with HMR and some ESLint rules.
@@ -54,7 +60,7 @@ Exporting Contacts to NFC Tags using Web NFC API for quick and intuitive data tr
 To start the dev server:
 
 ```
-bun run dev
+bun install && bun run dev
 ```
 
 To build the app and start the prod server:
