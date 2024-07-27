@@ -9,6 +9,8 @@ export type VCardContact = {
   note?: string
 }
 
+type ContactsWithoutNote = Omit<VCardContact, `note`>[]
+
 export function generateVCard(contacts: VCardContact[]) {
   return contacts
     .map(contact => {
@@ -33,4 +35,24 @@ export function downloadVCard(vCardText: string) {
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+export function parseVCardText(vCardText: string) {
+  const contacts: ContactsWithoutNote = []
+
+  const vCards = vCardText.split(/BEGIN:VCARD/i).filter(v => v.trim() !== ``)
+  console.log(vCards)
+  vCards.forEach(vCard => {
+    const nameMatch = vCard.match(/FN:(.+)/i)
+    const telMatch = vCard.match(/TEL:(.+)/i)
+    console.log(nameMatch, telMatch)
+    if (nameMatch && telMatch) {
+      contacts.push({
+        name: nameMatch[1].trim(),
+        tel: telMatch[1].trim(),
+      })
+    }
+  })
+
+  return contacts
 }

@@ -10,9 +10,11 @@ import { QRCodeScanner } from './features/qr-code-scanner'
 import { InlineBubble } from './features/ui/inline-bubble'
 import { Book } from 'iconsax-react'
 import { toast } from 'sonner'
+import { ImportedContacts } from './features/imported-contacts'
 
 function App() {
   const [downloaded, setDownloaded] = useState(false)
+  const [vCardText, setVCardText] = useState(``)
 
   useLayoutEffect(() => {
     const queryString = window.location.search
@@ -22,8 +24,9 @@ function App() {
     const decodedVCardText = decodeURIComponent(vCardTextParam)
       .split(`|`)
       .join(`\n`)
+    setVCardText(decodedVCardText)
     toast.info(`Downloading contact data`)
-    downloadVCard(decodedVCardText)
+    setTimeout(() => downloadVCard(decodedVCardText))
     setDownloaded(true)
   }, [])
 
@@ -53,6 +56,7 @@ function App() {
         </h1>
         <br />
         <PersonalContactWithQRCode />
+        {vCardText && <ImportedContacts vCardText={vCardText} />}
         <SharedContactWithQRCode />
         <ContactPickerWithQRCode />
         <QRCodeScanner />
