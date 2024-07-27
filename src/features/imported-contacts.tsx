@@ -31,9 +31,9 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
         content={
           <div className='space-y-4'>
             <h1 className='font-[650]'>Imported Contacts</h1>
-            {importedContacts.length > 0 && (
+            {importedContacts.length > 0 ? (
               <>
-                <ol className='list-inside list-decimal text-left'>
+                <ol className='list-inside list-decimal text-left mx-auto'>
                   {importedContacts.map(({ name, tel }) => (
                     <li key={name}>
                       <b>{name}</b>{' '}
@@ -53,8 +53,9 @@ export function ImportedContacts({ vCardText }: { vCardText: string }) {
                   Remove all
                 </Button>
               </>
+            ) : (
+              <b className='block'>zero imported contacts</b>
             )}
-            <b>zero imported contacts</b>
           </div>
         }
       >
