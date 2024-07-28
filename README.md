@@ -11,8 +11,9 @@ The PWA is live at [persist-tau.vercel.app](https://persist-tau.vercel.app)
 - Contact Selection with Vibration Feedback: users can select contacts from their phonebook, with vibration feedback provided, via the Vibration API, to confirm their action
 - Generate vCard files to import contacts on other devices
 - Personal and shared contact forms, with local storage persistence
-- Imported contacts' list with link to each contact and local storage persistence
 - Share contacts via dynamically generated QR codes － download & scan QR Codes in-app
+- Imported contacts' list with link to each contact and local storage persistence
+- Toast notifications for user feedback
 - Progressive Web Application － Installable app
 
 ## Technologies
